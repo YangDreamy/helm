@@ -1,15 +1,12 @@
-apiVersion: v1
+---
 kind: Service
+apiVersion: v1
 metadata:
-  name: {{ include "petclinic.fullname" . }}
-  labels:
-    {{- include "petclinic.labels" . | nindent 4 }}
+  name: clinic-service
 spec:
-  type: {{ .Values.service.type }}
-  ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
   selector:
-    {{- include "petclinic.selectorLabels" . | nindent 4 }}
+    app: clinic-front
+  ports:
+  # Default port used by the image
+  - port: {{ .Values.service.port }}
+    targetPort: 8080
